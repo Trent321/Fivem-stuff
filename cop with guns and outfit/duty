@@ -1,0 +1,29 @@
+-- Load the character model and assign it to the player
+function LoadCharacterModel(player)
+    local model = "models/player/cop.mdl"
+    player:SetModel(model)
+end
+
+-- Equip the player with the necessary weapons and outfit
+function EquipPlayer(player)
+    -- Give the player a pistol and a nightstick
+    player:GivePlayerWeapon("weapon_pistol", 42, true, true)
+    player:GivePlayerWeapon("weapon_nightstick", 1, true, true)
+
+    -- Set the player's clothes to the cop outfit
+    player:SetPlayerClothes(0, 4, 2, 1)
+    player:SetPlayerClothes(1, 9, 0, 0)
+    player:SetPlayerClothes(2, 0, 0, 0)
+    player:SetPlayerClothes(3, 7, 2, 0)
+    player:SetPlayerClothes(4, 25, 0, 0)
+end
+
+-- Register the /duty command
+RegisterCommand("duty", function(player)
+    -- Load the character model and equip the player
+    LoadCharacterModel(player)
+    EquipPlayer(player)
+
+    -- Send a message to the player to let them know they are now on duty
+    player:SendChatMessage("You are now on duty as a cop.")
+end, false)
